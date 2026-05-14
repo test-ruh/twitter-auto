@@ -1,0 +1,118 @@
+infrastructure:
+  - key: PG_CONNECTION_STRING
+    label: PostgreSQL connection string
+    required: false
+    secret: true
+    platform_managed: true
+    description: "Platform-managed PostgreSQL connection used by persistence helpers."
+  - key: ORG_ID
+    label: Organization ID
+    required: false
+    secret: false
+    platform_managed: true
+    description: "Platform-managed organization identifier."
+  - key: AGENT_ID
+    label: Agent ID
+    required: false
+    secret: false
+    platform_managed: true
+    description: "Platform-managed agent identifier."
+  - key: RUN_ID
+    label: Run ID
+    required: false
+    secret: false
+    platform_managed: true
+    description: "Platform-managed workflow run identifier."
+connector:
+  - key: TWITTER_API_KEY
+    label: Twitter/X API key
+    required: true
+    secret: true
+    platform_managed: false
+    description: "Twitter/X developer API key for read-only AI trend retrieval."
+    how_to_get_steps:
+      - "Open https://developer.x.com/en/portal/dashboard in your browser"
+      - Sign in and select the project and app used for TwitterAuto
+      - "Click 'Keys and tokens' for the app"
+      - "Find the 'API Key and Secret' section"
+      - Copy the API Key and paste it into the field above.
+    provider_doc_url: "https://developer.x.com/en/docs/authentication/oauth-1-0a/api-key-and-secret"
+  - key: TWITTER_API_SECRET
+    label: Twitter/X API secret
+    required: true
+    secret: true
+    platform_managed: false
+    description: "Twitter/X developer API secret for read-only AI trend retrieval."
+    how_to_get_steps:
+      - "Open https://developer.x.com/en/portal/dashboard in your browser"
+      - Sign in and select the project and app used for TwitterAuto
+      - "Click 'Keys and tokens' for the app"
+      - "Find the 'API Key and Secret' section"
+      - Copy the API Secret and paste it into the field above.
+    provider_doc_url: "https://developer.x.com/en/docs/authentication/oauth-1-0a/api-key-and-secret"
+  - key: TWITTER_ACCESS_TOKEN
+    label: Twitter/X access token
+    required: true
+    secret: true
+    platform_managed: false
+    description: "Twitter/X access token for read-only trend/source retrieval."
+    how_to_get_steps:
+      - "Open https://developer.x.com/en/portal/dashboard in your browser"
+      - Sign in and select the project and app used for TwitterAuto
+      - "Click 'Keys and tokens' for the app"
+      - "Find the 'Access Token and Secret' section"
+      - "Click 'Generate' if a token is not already available"
+      - Copy the Access Token and paste it into the field above.
+    provider_doc_url: "https://developer.x.com/en/docs/authentication/oauth-1-0a/obtaining-user-access-tokens"
+  - key: TWITTER_ACCESS_TOKEN_SECRET
+    label: Twitter/X access token secret
+    required: true
+    secret: true
+    platform_managed: false
+    description: "Twitter/X access token secret for read-only trend/source retrieval."
+    how_to_get_steps:
+      - "Open https://developer.x.com/en/portal/dashboard in your browser"
+      - Sign in and select the project and app used for TwitterAuto
+      - "Click 'Keys and tokens' for the app"
+      - "Find the 'Access Token and Secret' section"
+      - "Click 'Generate' if a token secret is not already available"
+      - Copy the Access Token Secret and paste it into the field above.
+    provider_doc_url: "https://developer.x.com/en/docs/authentication/oauth-1-0a/obtaining-user-access-tokens"
+  - key: RESEND_API_KEY
+    label: Resend API key
+    required: true
+    secret: true
+    platform_managed: false
+    description: Resend API key for approval email delivery.
+    how_to_get_steps:
+      - "Open https://resend.com/api-keys in your browser"
+      - Sign in to the Resend workspace used for TwitterAuto
+      - "Click 'Create API Key'"
+      - "Enter a name such as 'TwitterAuto approval email' and choose sending permissions"
+      - "Click 'Add' to create the key"
+      - Copy the API key and paste it into the field above.
+    provider_doc_url: "https://resend.com/docs/dashboard/api-keys/introduction"
+channel:
+  - key: RECIPIENT_EMAIL_ADDRESS
+    label: Approval recipient email address
+    required: true
+    secret: false
+    platform_managed: false
+    description: Email address where the requesting user receives drafts for approval.
+    how_to_get_steps:
+      - "Open https://mail.google.com or your preferred email inbox in your browser"
+      - Confirm the inbox where the requesting user will review TwitterAuto draft emails
+      - Copy the recipient email address and paste it into the field above.
+  - key: EMAIL_FROM_ADDRESS
+    label: Verified Resend sender email address
+    required: true
+    secret: false
+    platform_managed: false
+    description: Verified sender address used by Resend.
+    how_to_get_steps:
+      - "Open https://resend.com/domains in your browser"
+      - Sign in to the Resend workspace used for TwitterAuto
+      - "Click 'Domains' and verify a sending domain if needed"
+      - Open the verified domain and choose the sender address for approval emails
+      - Copy the verified sender address and paste it into the field above.
+    provider_doc_url: "https://resend.com/docs/dashboard/domains/introduction"

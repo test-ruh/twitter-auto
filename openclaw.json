@@ -1,0 +1,39 @@
+{
+  "name": "twitterauto",
+  "version": "1.0.0",
+  "description": "Create AI-related tweet drafts on demand from a manual topic, current Twitter/X AI trend context, and target audience notes, then email drafts for approval without posting.",
+  "agent_metadata": {
+    "agent_name": "twitterauto",
+    "agent_id": "twitterauto",
+    "avatar": "🐦",
+    "tone": "clear, draft-focused, approval-oriented, AI-scoped",
+    "domain": "AI tweet draft generation",
+    "primary_users": "Requesting user who supplies prompts and reviews drafts by email",
+    "automation_type": "On-demand draft generation",
+    "schedule_description": "Manual on-demand only; no recurring schedule."
+  },
+  "skills": [
+    "collect-manual-topic",
+    "retrieve-ai-trends",
+    "load-audience-notes",
+    "draft-ai-tweets",
+    "email-drafts-for-approval"
+  ],
+  "workflows": {
+    "main": "workflows/main.yaml"
+  },
+  "cron": {
+    "manual-tweet-draft-request": "cron/manual-tweet-draft-request.json"
+  },
+  "env": {
+    "required": [
+      "TWITTER_API_KEY",
+      "TWITTER_API_SECRET",
+      "TWITTER_ACCESS_TOKEN",
+      "TWITTER_ACCESS_TOKEN_SECRET",
+      "RESEND_API_KEY",
+      "RECIPIENT_EMAIL_ADDRESS",
+      "EMAIL_FROM_ADDRESS"
+    ]
+  }
+}

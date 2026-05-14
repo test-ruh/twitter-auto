@@ -1,0 +1,16 @@
+{
+  "name": "manual-tweet-draft-request",
+  "enabled": false,
+  "schedule": {
+    "kind": "cron",
+    "expr": "",
+    "tz": "UTC"
+  },
+  "sessionTarget": "main",
+  "wakeMode": "manual",
+  "payload": {
+    "kind": "agentTurn",
+    "message": "User-provided prompt or topic for an on-demand AI tweet draft request.",
+    "timeoutSeconds": 600
+  }
+}

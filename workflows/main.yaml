@@ -1,0 +1,38 @@
+name: main
+args:
+  run_id:
+    default: $(uuidgen)
+env:
+  RUN_ID: ${run_id}
+  PG_CONNECTION_STRING: ${PG_CONNECTION_STRING}
+  ORG_ID: ${ORG_ID}
+  AGENT_ID: ${AGENT_ID}
+steps:
+  - id: provision-schema
+    run: python3 scripts/data_writer.py provision
+    timeout_ms: 30000
+  - id: collect-manual-topic
+    run: bash skills/collect-manual-topic/scripts/run.sh
+    stdin: {{ input }}
+    timeout_ms: 120000
+    retry: 0
+  - id: retrieve-ai-trends
+    run: bash skills/retrieve-ai-trends/scripts/run.sh
+    stdin: "{{ steps.collect-manual-topic.output }}"
+    timeout_ms: 180000
+    retry: 1
+  - id: load-audience-notes
+    run: bash skills/load-audience-notes/scripts/run.sh
+    stdin: "{{ steps.collect-manual-topic.output }}"
+    timeout_ms: 120000
+    retry: 1
+  - id: draft-ai-tweets
+    run: bash skills/draft-ai-tweets/scripts/run.sh
+    stdin: "{{ steps.retrieve-ai-trends.output }}"
+    timeout_ms: 180000
+    retry: 0
+  - id: email-drafts-for-approval
+    run: bash skills/email-drafts-for-approval/scripts/run.sh
+    stdin: "{{ steps.draft-ai-tweets.output }}"
+    timeout_ms: 180000
+    retry: 1

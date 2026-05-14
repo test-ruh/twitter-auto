@@ -1,0 +1,79 @@
+version: "1.0"
+agent_id: twitterauto
+
+tables:
+  result_target_audience_notes:
+    description: Stores target audience notes used to guide AI tweet drafts.
+    writable: true
+    write_mode: upsert
+    columns:
+      id:
+        type: uuid
+        primary_key: true
+        required: true
+        description: Primary identifier.
+      run_id:
+        type: string
+        description: Platform run identifier injected by the data writer when present.
+      computed_at:
+        type: datetime
+        description: Platform computation timestamp injected by the data writer when present.
+      notes:
+        type: text
+        required: true
+        description: Target audience notes.
+      created_at:
+        type: datetime
+        required: true
+        description: Record creation time.
+      updated_at:
+        type: datetime
+        required: true
+        description: Record update time.
+    conflict_columns:
+      - id
+  result_tweet_drafts:
+    description: "Stores generated AI tweet drafts and approval-delivery status."
+    writable: true
+    write_mode: insert
+    columns:
+      id:
+        type: uuid
+        primary_key: true
+        required: true
+        description: Primary identifier.
+      run_id:
+        type: string
+        description: Platform run identifier injected by the data writer.
+      computed_at:
+        type: datetime
+        description: Platform computation timestamp injected by the data writer.
+      user_prompt:
+        type: text
+        required: true
+        description: Manual prompt or topic entered by the user.
+      trend_context:
+        type: jsonb
+        required: true
+        description: Current AI trending topics retrieved from Twitter/X.
+      draft_text:
+        type: text
+        required: true
+        description: Generated tweet draft.
+      approval_channel:
+        type: string
+        required: true
+        description: Approval delivery channel; Email.
+      approval_status:
+        type: string
+        required: true
+        description: Draft approval workflow status.
+      created_at:
+        type: datetime
+        required: true
+        description: Draft creation time.
+      sent_at:
+        type: datetime
+        description: Email delivery time.
+    conflict_columns:
+      - id
